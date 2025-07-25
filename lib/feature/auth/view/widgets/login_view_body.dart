@@ -3,7 +3,6 @@ import 'package:resturant_task/core/theme/color_manager.dart';
 import 'package:resturant_task/core/widgets/custom_button.dart';
 import 'package:resturant_task/feature/auth/view/widgets/email_text_from_field.dart';
 import 'package:resturant_task/feature/auth/view/widgets/password_text_form_field.dart';
-
 import '../../function/firebase_login.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -43,6 +42,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               CustomButton(
                 text: 'Login',
                 onPressed: () async {
+                  
                   if (!formKey.currentState!.validate()) return;
 
                   await login(
@@ -50,7 +50,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     password: passwordController.text.trim(),
                     context: context,
                   );
-                 
                 },
               ),
             ],
