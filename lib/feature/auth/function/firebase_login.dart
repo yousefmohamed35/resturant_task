@@ -16,7 +16,7 @@ Future<void> login({
         .signInWithEmailAndPassword(email: email, password: password);
     log(userCredential.user!.uid.toString());
     GoRouter.of(context).go(Routes.menu);
-  } on FirebaseAuthException catch (e) {
+  } on FirebaseAuthException {
     ScaffoldMessenger.of(
       context,
     ).showSnackBar(SnackBar(content: Text('check your email or password')));
