@@ -9,7 +9,7 @@ class ResturantTask extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MenuCubit(),
+      create: (context) => MenuCubit()..getMenu(),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: AppRoutes.router,
