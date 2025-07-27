@@ -7,13 +7,15 @@ class MenuItemsListViewBuilder extends StatelessWidget {
   final List<MenuItems> menuItems;
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: menuItems.length,
-      itemBuilder: (context, index) {
-        final menuItem = menuItems[index];
-        return MenuItemCard(menuItem: menuItem);
-      },
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: ListView.builder(
+        itemCount: menuItems.length,
+        itemBuilder: (context, index) {
+          final menuItem = menuItems[index];
+          return MenuItemCard(menuItem: menuItem);
+        },
+      ),
     );
   }
 }
-
