@@ -6,5 +6,11 @@ class CartInitial extends CartState {}
 
 class CartSuccess extends CartState {
   final List<CartItems> cartItems;
-  CartSuccess({required this.cartItems});
+  final num totalPrice;
+  CartSuccess({required this.cartItems})
+    : totalPrice = cartItems.fold(
+        0,
+        (previousValue, element) =>
+            previousValue + element.price * element.quantity,
+      );
 }

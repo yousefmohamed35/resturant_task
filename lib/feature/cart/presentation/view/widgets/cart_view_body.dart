@@ -9,15 +9,55 @@ class CartViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartCubit, CartState>(builder: (context, state) {
-      if (state is CartSuccess) {
-        return ListView.builder(itemBuilder: (context, index) {
-          final cartItem = state.cartItems[index];
-    return CardItem(cartItem: cartItem);
-        }, itemCount: state.cartItems.length,);
-      } else {
-        return const Center(child: CircularProgressIndicator());
-      }
-    });
+    return BlocBuilder<CartCubit, CartState>(
+      builder: (context, state) {
+        if (state is CartSuccess) {
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: state.cartItems.length,
+                  itemBuilder: (context, index) {
+                    final cartItem = state.cartItems[index];
+                    return CardItem(
+                      cartItem: cartItem,
+                      totalPrice: state.totalPrice,
+                    );
+                  },
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  border: const Border(top: BorderSide(color: Colors.black12)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Total:',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      '\$${state.totalPrice.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
+    );
   }
 }

@@ -6,8 +6,9 @@ import '../../../../../core/theme/text_styles.dart';
 import '../../manager/cart_cubit.dart';
 
 class CardItem extends StatelessWidget {
-  const CardItem({super.key, required this.cartItem});
+  const CardItem({super.key, required this.cartItem, required this.totalPrice});
   final CartItems cartItem;
+  final num totalPrice ;
   @override
   Widget build(BuildContext context) {
     return Padding(
