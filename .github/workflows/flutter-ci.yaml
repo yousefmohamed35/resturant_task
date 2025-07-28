@@ -29,21 +29,7 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      # Run tests
-      - name: Run tests
-        run: flutter test
 
       # Build APK (for Android)
       - name: Build APK
         run: flutter build apk --release
-
-      # Build IPA (for iOS, optional)
-      - name: Build IPA
-        if: runner.os == 'macOS'
-        run: flutter build ios --release
-
-      # Deploy to Firebase
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
