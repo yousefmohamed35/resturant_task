@@ -9,7 +9,7 @@ class CartItems extends HiveObject{
   @HiveField(2)
 final  String image;
   @HiveField(3)
-final  String price;
+final  num price;
   @HiveField(4)
   int quantity;
 

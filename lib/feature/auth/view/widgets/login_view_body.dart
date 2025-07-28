@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resturant_task/core/theme/color_manager.dart';
 import 'package:resturant_task/core/widgets/custom_button.dart';
 import 'package:resturant_task/feature/auth/view/widgets/email_text_from_field.dart';
 import 'package:resturant_task/feature/auth/view/widgets/password_text_form_field.dart';
+import 'package:resturant_task/feature/cart/presentation/manager/cart_cubit.dart';
 import '../../function/firebase_login.dart';
 
 class LoginViewBody extends StatefulWidget {
@@ -50,6 +52,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     password: passwordController.text.trim(),
                     context: context,
                   );
+                  await context.read<CartCubit>().init();
                 },
               ),
             ],

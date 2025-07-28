@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:resturant_task/core/theme/color_manager.dart';
-import 'package:resturant_task/feature/menu/manager/menu_cubit.dart';
+import '../../../core/routes/routes.dart';
 import '../../../core/theme/text_styles.dart';
-import 'widgets/menu_items_list_view_builder.dart';
+import 'widgets/menu_view_bloc_builder.dart';
 
 class MenuView extends StatelessWidget {
   const MenuView({super.key});
@@ -19,20 +19,19 @@ class MenuView extends StatelessWidget {
         ),
         elevation: 10,
         backgroundColor: ColorManager.background,
-        centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              GoRouter.of(context).push(Routes.cart);
+            },
+            icon: const Icon(
+              Icons.shopping_cart,
+              color: ColorManager.lightGreen,
+            ),
+          ),
+        ],
       ),
-      body: BlocBuilder<MenuCubit, MenuState>(
-        builder: (context, state) {
-          if (state is MenuLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is MenuError) {
-            return Center(child: Text(state.message));
-          } else if (state is MenuSuccess) {
-            return MenuItemsListViewBuilder(menuItems: state.menuItems);
-          }
-          return const SizedBox.shrink();
-        },
-      ),
+      body: MenuViewBlocBuilder(),
     );
   }
 }
