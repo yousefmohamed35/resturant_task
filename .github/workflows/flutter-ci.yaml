@@ -1,30 +1,49 @@
-name: Flutter CI
+name: Flutter CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 🔄 Checkout code
-      uses: actions/checkout@v3
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: 💙 Set up Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.19.6' # Or any stable version you're using
-        channel: 'stable'
+      # Set up Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.34.0-0.1.pre'
+          channel: 'beta'
 
-    - name: 🧪 Install dependencies
-      run: flutter pub get
 
-    - name: ✅ Analyze
-      run: flutter analyze
+      # Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
 
-    - name: 🧪 Run tests
-      run: flutter test
+      # Run tests
+      - name: Run tests
+        run: flutter test
+
+      # Build APK (for Android)
+      - name: Build APK
+        run: flutter build apk --release
+
+      # Build IPA (for iOS, optional)
+      - name: Build IPA
+        if: runner.os == 'macOS'
+        run: flutter build ios --release
+
+      # Deploy to Firebase
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
